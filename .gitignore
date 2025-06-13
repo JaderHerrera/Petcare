@@ -1,56 +1,34 @@
-# Gradle
-.gradle
+# Gradle files
+.gradle/
 build/
 
-captures
+# Local configuration file (sdk path, etc)
+local.properties
 
-**/local.properties
+# Log/OS Files
+*.log
 
-# IntelliJ .idea folder
-.idea/workspace.xml
-.idea/libraries
-.idea/caches
-.idea/navEditor.xml
-.idea/tasks.xml
-.idea/modules.xml
-.idea/compiler.xml
-.idea/jarRepositories.xml
-.idea/deploymentTargetDropDown.xml
-.idea/deploymentTargetSelector.xml
-.idea/misc.xml
-.idea/androidTestResultsUserPreferences.xml
-.idea/inspectionProfiles
-.idea/vcs.xml
+# Android Studio generated files and folders
+/.kotlin
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+output.json
 
-# Ignore all auto-generated configs except for app.xml. It's needed as template for the build
-.idea/runConfigurations
-!.idea/runConfigurations/app.xml
-
-gradle.xml
+# IntelliJ
 *.iml
+.idea/
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml
 
-# General
-.DS_Store
-.externalNativeBuild
+# Keystore files
+*.jks
+*.keystore
 
-# Do not commit plain-text signing info
-release/*.properties
-release/*.gpg
+# Google Services (e.g. APIs or Firebase)
+google-services.json
 
-# VS Code config
-org.eclipse.buildship.core.prefs
-.classpath
-.project
-
-# Temporary API docs
-docs/api
-package-list-coil-base
-
-# Mkdocs temporary serving folder
-docs-gen
-site
-*.bak
-.idea/appInsightsSettings.xml
-
-#TFLite
-*.tflite
+# Android Profiling
+*.hprof
