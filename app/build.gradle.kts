@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.jssdvv.petcare"
+    namespace = "com.jasafe.petcare"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.jssdvv.petcare"
+        applicationId = "com.jasafe.petcare"
         minSdk = 24
         targetSdk = 35
         versionCode = 1

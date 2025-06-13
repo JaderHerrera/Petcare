@@ -1,4 +1,4 @@
-package com.jssdvv.petcare.core.destination
+package com.jasafe.petcare.core.destination
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

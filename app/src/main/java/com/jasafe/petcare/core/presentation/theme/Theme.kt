@@ -1,4 +1,4 @@
-package com.jssdvv.petcare.core.presentation.theme
+package com.jasafe.petcare.core.presentation.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
