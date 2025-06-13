@@ -1,6 +1,5 @@
-package com.jssdvv.petcare.ui.theme
+package com.jssdvv.petcare.core.presentation.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

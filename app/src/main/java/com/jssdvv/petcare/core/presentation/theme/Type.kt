@@ -1,4 +1,4 @@
-package com.jssdvv.petcare.ui.theme
+package com.jssdvv.petcare.core.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

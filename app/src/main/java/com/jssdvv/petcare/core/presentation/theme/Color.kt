@@ -1,4 +1,4 @@
-package com.jssdvv.petcare.ui.theme
+package com.jssdvv.petcare.core.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
