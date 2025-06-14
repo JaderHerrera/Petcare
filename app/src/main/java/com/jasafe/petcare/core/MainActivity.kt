@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.jasafe.petcare.core.destination.MainScreen
+import androidx.navigation.compose.rememberNavController
+import com.jasafe.petcare.core.navigation.NavigationDrawer
 import com.jasafe.petcare.core.presentation.theme.PetcareTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,7 +14,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PetcareTheme {
-                MainScreen()
+                val navController = rememberNavController()
+
+                NavigationDrawer(
+                    navController = navController
+                )
             }
         }
     }
