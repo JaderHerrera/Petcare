@@ -1,4 +1,4 @@
-package com.jasafe.petcare.core.navigation
+package com.jasafe.petcare.core.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.DrawerValue
@@ -27,22 +26,20 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
+import com.jasafe.petcare.core.presentation.navigation.AppNavHost
+import com.jasafe.petcare.core.presentation.navigation.RegisterRoute
 
 @Composable
-fun NavigationDrawer(
-    navController: NavHostController
+fun App(
+    appState : AppState = rememberAppState()
 ) {
+    val navHostController = appState.navHostController
 
     // Estado del Cajón
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-
-    // Corrutinas = Hilos Secundarios
-    val coroutine = rememberCoroutineScope()
 
     // States
     val selectedItem = remember { mutableIntStateOf(0) }
@@ -60,9 +57,7 @@ fun NavigationDrawer(
                     ) {
                         FilledIconButton(
                             modifier = Modifier.size(56.dp),
-                            onClick = {
-                                navController.navigateToHome()
-                            },
+                            onClick = { appState.popUpToHome() },
                             shape = RoundedCornerShape(16.dp)
                         ) {
                             Icon(
@@ -83,7 +78,7 @@ fun NavigationDrawer(
                         FilledIconButton(
                             modifier = Modifier.size(56.dp),
                             onClick = {
-                                navController.navigateToRegister()
+                                navHostController.navigate(RegisterRoute)
                             },
                             shape = RoundedCornerShape(16.dp)
                         ) {
@@ -93,7 +88,6 @@ fun NavigationDrawer(
                             )
                         }
                     }
-                    // Segunda columna
                     Column(
                         modifier = Modifier
                             .padding(16.dp)
@@ -102,74 +96,36 @@ fun NavigationDrawer(
                         Spacer(Modifier.height(12.dp))
                         HorizontalDivider()
                         Spacer(Modifier.height(12.dp))
-                        NavigationDrawerItem( // Padding
-                            label = {
-                                // Icono y el texto
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Face,
-                                        contentDescription = null
-                                    )
-                                    Text("Identificación")
+                        appState.drawerNavItems.forEachIndexed { index, item ->
+                            val selected = selectedItem.intValue == index
+
+                            NavigationDrawerItem(
+                                label = {
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                                    ) {
+                                        Icon(
+                                            imageVector = if(selected) item.selectedIconDrawableId
+                                            else item.unselectedIconDrawableId,
+                                            contentDescription = null
+                                        )
+                                        Text(item.labelStringId)
+                                    }
+                                },
+                                selected = selected,
+                                onClick = {
+                                    appState.navigateToDrawerItem(item)
+                                    selectedItem.intValue = index
                                 }
-                            },
-                            selected = selectedItem.intValue == 0,
-                            onClick = {
-                                navController.navigateToIdentification()
-                                selectedItem.intValue = 0
-                            }
-                        )
-                        NavigationDrawerItem(
-                            label = {
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Face,
-                                        contentDescription = null
-                                    )
-                                    Text("Monitoreo")
-                                }
-                            },
-                            selected = selectedItem.intValue == 1,
-                            onClick = {
-                                navController.navigateToMonitoring()
-                                selectedItem.intValue = 1
-                            }
-                        )
-                        NavigationDrawerItem(
-                            label = {
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Face,
-                                        contentDescription = null
-                                    )
-                                    Text("Consejos")
-                                }
-                            },
-                            selected = selectedItem.intValue == 2,
-                            onClick = {
-                                navController.navigateToAdvices()
-                                selectedItem.intValue = 2
-                            }
-                        )
+                            )
+                        }
                     }
                 }
             }
         },
         drawerState = drawerState,
-    ) { // Último Parámetro -> content: @Composable () -> Unit
-        // Bloque de contenido del ModalNavigationDrawer
-        NavigationHost(navController = navController)
+    ) {
+        AppNavHost(navHostController)
     }
 }

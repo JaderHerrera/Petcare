@@ -1,4 +1,4 @@
-package com.jasafe.petcare.core.destination
+package com.jasafe.petcare.home.destination
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
